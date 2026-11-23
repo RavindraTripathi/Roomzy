@@ -1,0 +1,6 @@
+{
+  "name": "ROOMZY",
+  "description": "Find Your Space. Match Your Vibe. India's flatmate discovery and verified shared apartment marketplace.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

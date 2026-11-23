@@ -1,0 +1,277 @@
+{
+  "entities": {
+    "UserAccount": {
+      "title": "UserAccount",
+      "description": "Private user account metadata, subscription state, and quota counters.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "format": "email", "maxLength": 254 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "fullName": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "subscriptionTier": { "type": "string", "enum": ["free", "premium"] },
+        "subscriptionPlan": { "type": "string", "enum": ["none", "monthly", "quarterly", "annual"] },
+        "subscriptionExpiresAt": { "type": "string", "format": "date-time" },
+        "superLikesRemaining": { "type": "integer" },
+        "dailyLikesCount": { "type": "integer" },
+        "lastLikeDate": { "type": "string", "maxLength": 16 },
+        "verificationStatus": { "type": "string", "enum": ["unverified", "pending", "verified", "rejected"] },
+        "onboardingComplete": { "type": "boolean" },
+        "isSuspended": { "type": "boolean" },
+        "isBanned": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "fullName", "subscriptionTier", "verificationStatus", "onboardingComplete", "isSuspended", "isBanned", "createdAt", "updatedAt"]
+    },
+    "FlatmateProfile": {
+      "title": "FlatmateProfile",
+      "description": "Publicly discoverable flatmate discovery profile (strictly free of PII like email, phone, or KYC docs).",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "fullName": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "photoUrl": { "type": "string", "maxLength": 1024 },
+        "age": { "type": "integer" },
+        "gender": { "type": "string", "enum": ["Male", "Female", "Non-Binary", "Prefer not to say"] },
+        "profession": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "companyOrCollege": { "type": "string", "maxLength": 100 },
+        "currentCity": { "type": "string", "maxLength": 60 },
+        "preferredCity": { "type": "string", "maxLength": 60 },
+        "preferredLocality": { "type": "string", "maxLength": 100 },
+        "monthlyBudget": { "type": "integer" },
+        "moveInDate": { "type": "string", "maxLength": 20 },
+        "occupancyPreference": { "type": "string", "enum": ["Private Room", "Shared Room", "Entire Flat", "Any"] },
+        "smoking": { "type": "string", "enum": ["Never", "Socially", "Regularly"] },
+        "drinking": { "type": "string", "enum": ["Never", "Socially", "Regularly"] },
+        "pets": { "type": "string", "enum": ["No Pets", "Pet Friendly", "Have a Pet"] },
+        "foodPreference": { "type": "string", "enum": ["Vegetarian", "Eggetarian", "Non-Vegetarian", "Vegan", "Jain"] },
+        "sleepSchedule": { "type": "string", "enum": ["Early Bird", "Balanced", "Night Owl"] },
+        "workMode": { "type": "string", "enum": ["Work From Office", "Hybrid", "Work From Home", "Student"] },
+        "cleanliness": { "type": "string", "enum": ["Neat Freak", "Moderately Clean", "Relaxed"] },
+        "partyFrequency": { "type": "string", "enum": ["Never", "Occasionally", "Weekends"] },
+        "guestPreference": { "type": "string", "enum": ["No Guests", "Occasional Daytime", "Overnight OK"] },
+        "aboutMe": { "type": "string", "maxLength": 600 },
+        "isVerified": { "type": "boolean" },
+        "isPriority": { "type": "boolean" },
+        "isActive": { "type": "boolean" },
+        "profileCompletion": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "fullName", "age", "gender", "profession", "preferredCity", "preferredLocality", "monthlyBudget", "moveInDate", "occupancyPreference", "smoking", "drinking", "pets", "foodPreference", "sleepSchedule", "workMode", "cleanliness", "partyFrequency", "guestPreference", "isVerified", "isActive", "createdAt", "updatedAt"]
+    },
+    "PropertyListing": {
+      "title": "PropertyListing",
+      "description": "Shared apartment or available room listing across Indian cities.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerName": { "type": "string", "maxLength": 80 },
+        "ownerVerified": { "type": "boolean" },
+        "title": { "type": "string", "minLength": 5, "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 1200 },
+        "city": { "type": "string", "maxLength": 60 },
+        "locality": { "type": "string", "maxLength": 100 },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "monthlyRent": { "type": "integer" },
+        "securityDeposit": { "type": "integer" },
+        "maintenanceCharges": { "type": "integer" },
+        "availableRooms": { "type": "integer" },
+        "furnishing": { "type": "string", "enum": ["Fully Furnished", "Semi-Furnished", "Unfurnished"] },
+        "amenities": { "type": "array" },
+        "preferredTenant": { "type": "string", "enum": ["Any", "Male Only", "Female Only", "Working Professionals", "Students"] },
+        "availableFrom": { "type": "string", "maxLength": 20 },
+        "images": { "type": "array" },
+        "isFeatured": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["active", "inactive", "moderation_removed"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "ownerName", "title", "city", "locality", "monthlyRent", "securityDeposit", "maintenanceCharges", "availableRooms", "furnishing", "preferredTenant", "availableFrom", "isFeatured", "status", "createdAt", "updatedAt"]
+    },
+    "LikeAction": {
+      "title": "LikeAction",
+      "description": "Swipe interaction (like, pass, or superlike) between two users.",
+      "type": "object",
+      "properties": {
+        "fromUid": { "type": "string", "maxLength": 128 },
+        "toUid": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "enum": ["like", "pass", "superlike"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["fromUid", "toUid", "type", "createdAt"]
+    },
+    "Match": {
+      "title": "Match",
+      "description": "Mutual match between two flatmate profiles.",
+      "type": "object",
+      "properties": {
+        "users": { "type": "array" },
+        "user1Uid": { "type": "string", "maxLength": 128 },
+        "user2Uid": { "type": "string", "maxLength": 128 },
+        "compatibilityScore": { "type": "integer" },
+        "status": { "type": "string", "enum": ["matched", "unmatched", "blocked"] },
+        "blockedBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["users", "user1Uid", "user2Uid", "compatibilityScore", "status", "createdAt", "updatedAt"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "1:1 private conversation thread unlocked via mutual match or listing inquiry.",
+      "type": "object",
+      "properties": {
+        "participants": { "type": "array" },
+        "matchId": { "type": "string", "maxLength": 260 },
+        "listingId": { "type": "string", "maxLength": 128 },
+        "lastMessage": { "type": "string", "maxLength": 500 },
+        "lastMessageAt": { "type": "string", "format": "date-time" },
+        "blockedBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["participants", "createdAt", "updatedAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Individual chat message inside a conversation subcollection.",
+      "type": "object",
+      "properties": {
+        "senderUid": { "type": "string", "maxLength": 128 },
+        "text": { "type": "string", "maxLength": 2000 },
+        "imageUrl": { "type": "string", "maxLength": 1024 },
+        "readBy": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderUid", "readBy", "createdAt"]
+    },
+    "SavedProfile": {
+      "title": "SavedProfile",
+      "description": "Bookmarked flatmate profile.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "targetUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "targetUid", "createdAt"]
+    },
+    "VerificationRequest": {
+      "title": "VerificationRequest",
+      "description": "Private KYC/phone/email verification request; never exposes raw Aadhaar/PAN.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "enum": ["phone", "email", "govt_id"] },
+        "provider": { "type": "string", "maxLength": 60 },
+        "documentType": { "type": "string", "enum": ["Aadhaar", "PAN", "Passport", "Driving License", "Phone OTP", "Email"] },
+        "documentLast4": { "type": "string", "maxLength": 8 },
+        "status": { "type": "string", "enum": ["pending", "verified", "rejected"] },
+        "notes": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "type", "provider", "documentType", "status", "createdAt", "updatedAt"]
+    },
+    "SubscriptionRecord": {
+      "title": "SubscriptionRecord",
+      "description": "Subscription state linked to verified Cashfree payments.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "plan": { "type": "string", "enum": ["monthly", "quarterly", "annual", "featured_listing"] },
+        "amountInr": { "type": "integer" },
+        "cashfreeOrderId": { "type": "string", "maxLength": 128 },
+        "cashfreePaymentId": { "type": "string", "maxLength": 128 },
+        "status": { "type": "string", "enum": ["created", "active", "expired", "failed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "plan", "amountInr", "status", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "In-app notification for matches, messages, likes, inquiries, and verification.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "enum": ["match", "message", "like", "inquiry", "verification", "subscription"] },
+        "title": { "type": "string", "maxLength": 100 },
+        "body": { "type": "string", "maxLength": 300 },
+        "linkTab": { "type": "string", "maxLength": 40 },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "type", "title", "body", "isRead", "createdAt"]
+    },
+    "SafetyReport": {
+      "title": "SafetyReport",
+      "description": "User or listing moderation report.",
+      "type": "object",
+      "properties": {
+        "reporterUid": { "type": "string", "maxLength": 128 },
+        "targetUid": { "type": "string", "maxLength": 128 },
+        "targetType": { "type": "string", "enum": ["user", "listing"] },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "reason": { "type": "string", "maxLength": 120 },
+        "details": { "type": "string", "maxLength": 600 },
+        "status": { "type": "string", "enum": ["open", "resolved", "dismissed"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["reporterUid", "targetUid", "targetType", "targetId", "reason", "status", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserAccount" },
+      "description": "Private user account and subscription metadata"
+    },
+    "/profiles/{userId}": {
+      "schema": { "$ref": "#/entities/FlatmateProfile" },
+      "description": "Publicly discoverable flatmate lifestyle and preference profile"
+    },
+    "/property_listings/{listingId}": {
+      "schema": { "$ref": "#/entities/PropertyListing" },
+      "description": "Available rooms and shared apartments marketplace"
+    },
+    "/likes/{likeId}": {
+      "schema": { "$ref": "#/entities/LikeAction" },
+      "description": "Swipe like/pass/superlike actions"
+    },
+    "/matches/{matchId}": {
+      "schema": { "$ref": "#/entities/Match" },
+      "description": "Mutual matches between flatmates"
+    },
+    "/conversations/{conversationId}": {
+      "schema": { "$ref": "#/entities/Conversation" },
+      "description": "Private 1:1 conversation threads"
+    },
+    "/conversations/{conversationId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Messages inside a conversation"
+    },
+    "/saved_profiles/{saveId}": {
+      "schema": { "$ref": "#/entities/SavedProfile" },
+      "description": "Saved flatmate bookmarks"
+    },
+    "/verifications/{verificationId}": {
+      "schema": { "$ref": "#/entities/VerificationRequest" },
+      "description": "Private identity verification requests"
+    },
+    "/subscriptions/{subscriptionId}": {
+      "schema": { "$ref": "#/entities/SubscriptionRecord" },
+      "description": "User subscription records"
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "In-app user notifications"
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/SafetyReport" },
+      "description": "Moderation reports"
+    }
+  }
+}
